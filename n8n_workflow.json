@@ -1,0 +1,1195 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "binaryPropertyName": "data0",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        420,
+        -220
+      ],
+      "id": "471948b5-25b5-4ad0-a0ee-49fe11b6650c",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        420,
+        100
+      ],
+      "id": "af433f10-1525-47a9-bd8c-74be68ed9514",
+      "name": "Extract from File1"
+    },
+    {
+      "parameters": {
+        "operation": "xls",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        420,
+        -60
+      ],
+      "id": "a0f92959-0fb1-4b08-9a0d-5eed4420fc6c",
+      "name": "Extract from File2"
+    },
+    {
+      "parameters": {
+        "operation": "xlsx",
+        "binaryPropertyName": "=data0",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        420,
+        -380
+      ],
+      "id": "437941f7-155c-4483-a20b-3c4445f9cdce",
+      "name": "Extract from File3"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.files[0].fileExtension }}",
+                    "rightValue": "xlsx",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "982eaee3-8fbc-430c-8544-d0558c6fed6a"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "ce7d686f-4516-4f35-a6d8-7381b3248ab4",
+                    "leftValue": "={{ $json.files[0].fileExtension }}",
+                    "rightValue": "csv",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "649662d5-86cf-467b-b1a6-eb910531b678",
+                    "leftValue": "={{ $json.files[0].fileExtension }}",
+                    "rightValue": "xls",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "404d4f80-dcbf-43a4-b4a6-6394243735c6",
+                    "leftValue": "={{ $json.files[0].fileExtension }}",
+                    "rightValue": "pdf",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -60,
+        -220
+      ],
+      "id": "d5ac6d3f-f4cf-4676-ba8e-49d0a54a2544",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "content": "match against context"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2740,
+        -320
+      ],
+      "id": "ca178abe-dfee-46a0-80a8-cc099ed99bae",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "Get context via chat"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        880,
+        540
+      ],
+      "id": "fad81a54-80bc-4e26-bf4b-5f48092e6281",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "options": {
+          "allowFileUploads": true
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -520,
+        -380
+      ],
+      "id": "08829c0b-32a0-48cf-afff-e2d90e4ef010",
+      "name": "When chat message received",
+      "webhookId": "9b4204cc-6719-4a34-97b8-0fe66d6ed8de"
+    },
+    {
+      "parameters": {
+        "model": "gpt-4.1",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAzureOpenAi",
+      "typeVersion": 1,
+      "position": [
+        1180,
+        580
+      ],
+      "id": "9f7860b5-237c-42a7-93e7-e328d53c2158",
+      "name": "Azure OpenAI Chat Model",
+      "credentials": {
+        "azureOpenAiApi": {
+          "id": "vZH1AWRGyudAGlEH",
+          "name": "Azure Open AI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const rawText = $input.first().json.text;   // adjust \"text\" to your field name\nconst parsedData = JSON.parse(rawText);\n// `parsedData` is now a real JS array of objects.\nreturn parsedData.map(item => ({ json: item }));\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1340,
+        -140
+      ],
+      "id": "94463a3d-c129-4d65-acb7-17aaf1d3e681",
+      "name": "Code1"
+    },
+    {
+      "parameters": {
+        "content": "Create API Calls from entries",
+        "height": 460,
+        "width": 380
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1560,
+        -280
+      ],
+      "id": "55091072-5e8b-4c30-ab90-7b1da9a3b3a9",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "/upload",
+        "options": {
+          "binaryPropertyName": "data"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -500,
+        680
+      ],
+      "id": "84f1dd65-57fe-490e-b78d-f91cfb466c87",
+      "name": "Webhook1",
+      "webhookId": "8dd7aa0f-6b00-4539-a727-25de8c9cda3d"
+    },
+    {
+      "parameters": {
+        "binaryPropertyName": "data0",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        1340,
+        920
+      ],
+      "id": "4812cc30-65ee-49f9-8407-1c33c6dc74e3",
+      "name": "Extract from File4"
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        1340,
+        1240
+      ],
+      "id": "165f8d0b-18fb-48c1-80ef-a9fdd2d35b34",
+      "name": "Extract from File5"
+    },
+    {
+      "parameters": {
+        "operation": "xls",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        1340,
+        1080
+      ],
+      "id": "4fefd998-e6c7-45b1-b154-cc41a5c37e13",
+      "name": "Extract from File6"
+    },
+    {
+      "parameters": {
+        "operation": "xlsx",
+        "binaryPropertyName": "=data0",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        1340,
+        760
+      ],
+      "id": "39270ce3-c7d3-44f2-8ac6-c2aadeaf0914",
+      "name": "Extract from File7"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.files[0].fileExtension }}",
+                    "rightValue": "xlsx",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "982eaee3-8fbc-430c-8544-d0558c6fed6a"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "ce7d686f-4516-4f35-a6d8-7381b3248ab4",
+                    "leftValue": "={{ $json.files[0].fileExtension }}",
+                    "rightValue": "csv",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "649662d5-86cf-467b-b1a6-eb910531b678",
+                    "leftValue": "={{ $json.files[0].fileExtension }}",
+                    "rightValue": "xls",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "404d4f80-dcbf-43a4-b4a6-6394243735c6",
+                    "leftValue": "={{ $json.files[0].fileExtension }}",
+                    "rightValue": "pdf",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        860,
+        920
+      ],
+      "id": "606eac4f-9a9e-4a3c-b119-5ecb760159c3",
+      "name": "Switch1"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        1620,
+        1000
+      ],
+      "id": "4ef1d1f3-d58a-4451-ac5d-e7ee1e7d553e",
+      "name": "Aggregate1"
+    },
+    {
+      "parameters": {
+        "binaryPropertyName": "data0",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        220,
+        660
+      ],
+      "id": "5739f6a8-429d-4f6b-9cd3-de3cb7f5309c",
+      "name": "Extract from File8"
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        220,
+        980
+      ],
+      "id": "ff11bf56-0c41-4482-9843-f3f763e240a2",
+      "name": "Extract from File9"
+    },
+    {
+      "parameters": {
+        "operation": "xls",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        220,
+        820
+      ],
+      "id": "0fd77317-2eb0-49bc-a08f-ef2323d86512",
+      "name": "Extract from File10"
+    },
+    {
+      "parameters": {
+        "operation": "xlsx",
+        "binaryPropertyName": "=data0",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        220,
+        500
+      ],
+      "id": "3df0000d-760b-4438-9561-bc259fe23ddf",
+      "name": "Extract from File11"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.files[0].fileExtension }}",
+                    "rightValue": "xlsx",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "982eaee3-8fbc-430c-8544-d0558c6fed6a"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "ce7d686f-4516-4f35-a6d8-7381b3248ab4",
+                    "leftValue": "={{ $json.files[0].fileExtension }}",
+                    "rightValue": "csv",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "649662d5-86cf-467b-b1a6-eb910531b678",
+                    "leftValue": "={{ $json.files[0].fileExtension }}",
+                    "rightValue": "xls",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "404d4f80-dcbf-43a4-b4a6-6394243735c6",
+                    "leftValue": "={{ $json.files[0].fileExtension }}",
+                    "rightValue": "pdf",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -260,
+        660
+      ],
+      "id": "eebf0989-5764-4551-a4d0-c72eb348efc8",
+      "name": "Switch2"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        500,
+        740
+      ],
+      "id": "ff2761f1-3cb0-45e4-a78e-1136aaaf2ffd",
+      "name": "Aggregate2"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.data }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "Task: For each object that contains a data array, normalise its column names. \t\n1. Detect placeholder keys – Keys such as __EMPTY, __EMPTY_1, col-0, etc. count as placeholders. \n2. Locate a header row – When placeholder keys exist, scan the same data array for the first row whose values look like human-readable column labels (e.g. \"Index\", \"RefDes\", \"Qty.\", …). \n3. Rename columns – Replace all placeholder keys in every row with those header labels, position-for-position. \t\n4. Drop the header row – After renaming, remove the row that supplied the headers so it no longer appears in the result. \n5. No-op when keys are already meaningful – If the existing keys are not placeholders, leave the object unchanged. \t\n6. Preserve everything else – Do not alter row order or any cell values.  \n\nReturn the cleaned JSON (or the original JSON when no action was needed). Do not put the json into a code block"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        960,
+        -160
+      ],
+      "id": "f520d477-7009-4982-be6d-c882bcb76f6f",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n   \"query\":    [\" /* GraphQL query */ \"]\n}\n",
+        "autoFix": true
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        1600,
+        80
+      ],
+      "id": "c2109ee6-f423-42b3-aae0-cc69f7796e6e",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ JSON.stringify($json); }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "### 1. High-level role\n\nYou are BOM-GPT, an expert extraction and query-generation engine.\nYour job is to:\n1. Parse raw Bill-of-Materials (BOM) text or JSON the user supplies.\n2. Extract only the attributes requested.\n3. For every well-formed BOM line, build exactly one Nexar GraphQL query that returns live component data.\n4. Ignore any line that is obviously not a component specification (e.g. notes, DNP flags, empty rows).\n5. Output the GraphQL query as actual json.\n6. If a value is missing or unintelligible, omit that attribute silently (do not invent defaults).\n\n---\n\n### 2. Input expectations\n\nThe assistant will receive an array whose text field contains:\n- Either raw free-form text or a stringified JSON list that came from a CSV export.\n- Fields may appear with slightly different names or punctuation (e.g. \"Qty.\" vs \"Qty\").\n\n---\n\n### 3. Output format\n\nReturn a single JSON object:\n\n\n{\n   \"query\":    [ /* GraphQL query */ ]\n}\n\n\n---\n\n### 4. Nexar API reference\n\n## Welcome to the Nexar Playground example queries page. This page provides more information about the queries in the API playground.\n\nTo get started, press the PLAY button in the playground development environment in Nexar to run an example query:\n\n![](https://s3-eu-central-1.amazonaws.com/euc-cdn.freshdesk.com/data/helpdesk/attachments/production/101104952811/original/7GT8blKmg_cthpk9HUjRoH-BuK_7-wy11Q.png?1693396858)\n\n  \n\n## Our Data Model\n\n[This page](https://support.nexar.com/a/solutions/articles/101000452525?portalId=101000074009) can tell you more about how to use Voyager, the visualisation of our data model, and how you can interact with the API. Further documentation on how the GraphQL language works can be found [here](https://graphql.org/learn/).\n\n  \n\nWhilst using our GraphQL development environment, you can use **CTRL+Space** to explore the fields you can add to your query.\n\n  \n\nIf you use Postman, you can find a collection containing many of these queries attached. [Here's](https://support.nexar.com/support/solutions/articles/%20https%3A//learning.postman.com/docs/getting-started/importing-and-exporting/importing-data/) an article explaining how to import this into Postman.\n\n  \n\n  \n\nWhilst this is a handy resource to get started, we recommend using these examples to learn how to build your queries. Feel free to adapt any of these different examples to suit your use case.\n\n  \n\nBelow are more in-depth descriptions of each query and how you use them.\n\nIf you need further support, submit any questions [here](https://support.nexar.com/support/home).\n\n  \n\nHave fun exploring!\n\n---\n\n**TABLE OF CONTENTS**\n\n- [Total Availability](https://support.nexar.com/support/solutions/articles/#Total-Availability)\n- [Pricing Breaks](https://support.nexar.com/support/solutions/articles/#Pricing-Breaks)\n- [Part Attributes](https://support.nexar.com/support/solutions/articles/#Part-Attributes)\n- [Alternative Parts](https://support.nexar.com/support/solutions/articles/#Alternative-Parts)\n- [Design Query example](https://support.nexar.com/support/solutions/articles/#Design-Query-example)\n- [Search Parts](https://support.nexar.com/support/solutions/articles/#Search-Parts)\n- [Multi-part Search](https://support.nexar.com/support/solutions/articles/#Multi-part-Search)\n- [Exact Parts by Part ID](https://support.nexar.com/support/solutions/articles/#Exact-Parts-by-Part-ID)\n- [Median Price for 1000 Components](https://support.nexar.com/support/solutions/articles/#Median-Price-for-1000-Components)\n- [Changing Currency & Country](https://support.nexar.com/support/solutions/articles/#Changing-Currency-&-Country)\n- [Parts by MPN](https://support.nexar.com/support/solutions/articles/#Parts-by-MPN)\n- [Specific Suppliers Match](https://support.nexar.com/support/solutions/articles/#Specific-Suppliers-Match)\n- [Distributors With Inventory](https://support.nexar.com/support/solutions/articles/#Distributors-With-Inventory)\n- [Categories by IDs](https://support.nexar.com/support/solutions/articles/#Categories-by-IDs)\n- [Manufacturers by ID](https://support.nexar.com/support/solutions/articles/#Manufacturers-by-ID)\n- [Sellers by ID](https://support.nexar.com/support/solutions/articles/#Sellers-by-ID)\n\n---\n\n## Total Availability\n\n- This search uses supSearchMPN. The query, 'q', is **\"acs770\"** and will return many parts, as supSearchMPN allows for partial matches.\n- The country is set to \"US\". Without setting a country, availability for parts will default to the US.\n- The part limit is set to 5. Each part returned will count against your organisation's part limit. By design, supSearchMPN returns 10 parts.\n- Our query returns:\n\t- A description of the part\n\t- The total availability\n\t- The MPN\n\n```\n#Component availability\n#Availability of a component in a specified country's market, and individual seller inventory\n\nquery marketAvailability {\n  supSearchMpn(\n    #The value can be a partial match\n    #Change \"acs770\" to return your own part\n    q: \"acs770\"\n    #Total availability defaults to US\n    #Set your ISO country code below\n    country: \"US\"\n    limit: 5\n  ) {\n    #For this query, we return:\n    # Part description\n    # Total availability & MPN\n    # Seller name & inventory level\n    #Press CTRL+space to explore more fields    \n    results {\n      description\n      part {\n        totalAvail\n        mpn\n        sellers {\n          company {\n            name\n          }\n          offers {\n            inventoryLevel\n          }\n        }\n      }\n    }\n  }\n}\n```\n\nGeneric\n\n---\n\n## Pricing Breaks\n\n- In Octopart, you can find pricing by quantities such as 1, 10, 100, 10000. Nexar's API can also return these prices.\n- This search uses supSearchMPN. The query, 'q', is **\"acs770\"** and will return many parts, as supSearchMPN allows for partial matches.\n- The part limit is set to 5. Each part returned will count against your organisation's part limit. By design, supSearchMPN returns 10 parts.\n- Our query returns:\n\t- Total number of results\n\t- Seller names\n\t- The offer quantities\n\t- The prices of the parts for that quantity\n\n  \n\n```\n#Pricing by volume levels\n#Returns seller pricing of components for different purchase quantities\n\nquery pricingByVolumeLevels {\n  #Change \"acs770\" to return your own part\n  supSearchMpn(\n    q: \"acs770\", \n    #The API returns a default of 10 parts. \n    #Change limit from \"5\" to return the no. of parts you want\n    limit: 5) {\n    #Total number of results the search returns\n    hits\n    results {\n      part {\n    #For this query, we return \n        # Part MPN\n        # Part sellers company name, offer quantity & prices \n        #Press CTRL+space to explore more fields\n        mpn\n        sellers {\n          company {\n            name\n          }\n          offers {\n            prices {\n              #Returns prices for different quantities sellers offer\n              #Usually (but not limited to) 1, 10, 100, 1000, 10000 \n              quantity\n              price\n            }\n          }\n        }      \n      }\n    }\n  }\n}\n```\n\nGeneric\n\n---\n\n## Part Attributes\n\n- Parts in Octopart have attributes associated with them. The total list of attributes can be found [here](https://support.nexar.com/support/solutions/articles/https%3A#octopart.com/api/v4/values#attributes).\n- This search uses supSearchMPN. The query, 'q', is **\"ADS\"** and will return many parts, as supSearchMPN allows for partial matches.\n- You can filter or sort your query results on the attribute short-name. In the query below, we are filtering on the case packaging, specifically for the type SSOP. Note that you cannot filter on an attribute's existence. More information on filtering and sorting can be found [here](https://support.nexar.com/a/solutions/articles/101000452264?portalId=101000074009)\n- The part limit is set to 5. Each part returned will count against your organisation's part limit. By design, supSearchMPN returns 10 parts.\n- Our query returns:\n\t- Total number of results\n\t- Part attribute names, id and values\n\n```\n#Return part attributes\n#Return specific component technical specifications. \n\n#Not every component will have every attribute.\n#Components can be post-filtered to specific attributes\nquery specAttributes{\n  #Change \"ADS\" to a search of your choice\n  supSearchMpn(\n    q: \"ADS\",\n    filters: {\n      case_package: \n        #Change \"SSOP\" to a packaging of your own (e.g. \"VSSOP\")\n        [\"SSOP\"]\n    },\n    #The API returns a default of 10 parts. \n    #Change limit from \"5\" to return the no. of parts you want\n    limit: 5\n    ) {\n    #The number of results the search returns\n    hits\n    results {\n      part {\n        mpn\n        specs {\n          attribute {\n            #For this query, we return\n            # Part MPN\n            # Technical specification name, id, shortname and value\n            #Press CTRL+space to explore more fields\n            name\n            id\n            shortname\n          }\n          displayValue\n        }      \n      }\n    }\n  }\n}\n```\n\nGeneric\n\n---\n\n## Alternative Parts\n\n- This query finds alternatives that are similar in specs and functionality\n- This search uses supSearchMPN. The query, 'q', is **\"SY55855VKG\"** and will return many parts, as supSearchMPN allows for partial matches.\n- The part limit is set to 5. Each part returned will count against your organisation's part limit. By design, supSearchMPN returns 10 parts.\n- Our query returns:\n\t- Similar part name, URL and MPN\n\n```\n#Alternative parts by MPN\n#Search parts by MPN and return parts similar in spec & functionality\nquery findAlternativeParts {\n  #Change \"SY55855VKG\" to find alternative parts of your own\n  supSearchMpn(\n    q: \"SY55855VKG\",\n    #The API returns a default of 10 parts. \n    #Change limit from \"5\" to return the no. of parts you want\n    limit: 5) {\n    #The total number of results that the search returns\n    hits\n    results {\n      part {\n        mpn\n        similarParts {\n      #For this query, we return\n          # Similar part names, Octopart URL & MPN \n          #Press CTRL+space to explore more fields\n          name\n          octopartUrl\n          mpn\n        }\n      }\n    }\n  }\n}\n```\n\nGeneric\n\n---\n\n## Design Query Example\n\n- Design queries provide data from your Altium 365 account and require you to be signed up for a Nexar account and have an application with the design scope enabled. You will also need to be a member of an Altium 365 workspace.\n- This multi-step design query requires inputting information from one query to the next.\n- This query will find a component in your workspace by its ID\n- Start by pressing the play button and selecting design1\\_Workspaces from the dropdown menu ![](https://s3-eu-central-1.amazonaws.com/euc-cdn.freshdesk.com/data/helpdesk/attachments/production/101104894214/original/SegvyBZU8yH7QWfkRSOUytipVCXZal7Hbw.png?1693388852)\n- Your workspace URL, id, name, and description will be returned. If you see the below, it means you are not a member of any workspaces in Altium 365\n\n```html\n\"desWorkspaces\": []\n```\n\nHTML\n\n  \n\nIf you have a response with values...\n\n- Copy the URL from the response returned.\n- Paste the URL next to workspaceUrl to replace \"<WORKSPACE URL FROM PREVIOUS QUERY>\" in query design2\\_Library\n- Press the play button and select design2\\_Library ![](https://s3-eu-central-1.amazonaws.com/euc-cdn.freshdesk.com/data/helpdesk/attachments/production/101104897862/original/EPpfdVeniId-rrDlNDkGZKb0kAAUhYmLnw.png?1693389313)\n- You will see node ID, name and details, including parameter names and IDs\n- Copy the node ID from the response returned.\n- Paste the node ID next to the id to replace\"<NODE ID FROM PREVIOUS QUERY>\" in query design3\\_componentbyID\n- Press the play button and select design3\\_componentbyID ![](https://s3-eu-central-1.amazonaws.com/euc-cdn.freshdesk.com/data/helpdesk/attachments/production/101104898214/original/riv0G8K9x8TNoJi8XpW4sTawpKFgUNAwOw.png?1693389355)\n\nA component name and description from your workspace will be returned if successful.\n\n  \n\n```html\n#Find component in your workspace by ID\n#Design queries often require data from multiple queries to retrieve desired data\n        #Step 1: Query for the list of your Altium 365 workspaces & their fields\n        query design1_Workspaces {\n          desWorkspaces {\n            #For this query, we return\n            # Workspace url, id, name & description\n            #Press CTRL+space to explore more fields\n            #Copy URL returned in the response\n            #This will be used in Step 2\n            url\n            id\n            name\n            description\n          }\n        }\n\n        #Step 2: Take the URL from the previous query to find your library\n        query design2_Library {\n          desLibrary (workspaceUrl: \"<WORKSPACE URL FROM PREVIOUS QUERY>\") {\n            components {\n              nodes {\n                #For this query, we return \n                # Component node ID, name, & parameter names & values\n                #Press CTRL+space to explore more fields\n                #Copy the node ID returned in the response\n                #This will be used in Step 3\n                id\n                name\n                details {\n                  parameters {\n                    name\n                    value\n                  }\n                }\n              }\n            }\n          }\n        }\n\n        #Step 3: Take component node ID from previous query to find component by ID\n        query design3_componentbyID {\n          desComponentById (id:\"<NODE ID FROM PREVIOUS QUERY>\"){\n            #For this query, we return \n            # Component node ID, name, & component parameter names & values\n            #Press CTRL+space to explore more fields\n            name\n            description\n          }\n        }\n```\n\nHTML\n\n---\n\n## Search Parts\n\n- This search uses supSearch. The query, 'q', is **\"3 ohm resistor\"** and will return many parts, as supSearch allows for partial matches.\n- The part limit is set to 5. Each part returned will count against your organisation's part limit. By design, supSearch returns 10 parts.\n- Our query returns:\n\t- Part ID, name and ID\n\t- Median price for 1000\n\t- Part category ID and name\n\t- Manufacturer name and URL\n\n  \n\n```html\n#Search parts\n#Return parts based off a descriptive search, e.g. 3 ohm resistor\nquery partSearch {\n  supSearch (\n    #Try changing \"3 ohm resistor\" to a search value of your own\n    # This can also be an MPN\n    q:\"3 ohm resistor\", \n    #The API returns a default of 10 parts. \n    #Change limit from \"5\" to return the no. of parts you want\n    limit: 5\n    ){\n    #The total number of results that the search returns\n    hits\n    results {\n      part {\n        #For this query, we return\n        # Part ID, name, MPN, median price\n        # Part category & manufacturer \n        #Delete ID & press CTRL+space to explore other queries\n        id\n        name\n        mpn        \n        medianPrice1000 {\n          quantity\n          currency\n        }\n        category {\n          id\n          name          \n        }\n        manufacturer {\n          name\n          homepageUrl\n        }\n      }\n    }\n  }\n}\n```\n\nGeneric\n\n---\n\n## Multi-Part Search\n\n- This search uses multiSearch and takes multiple exact MPNs.\n- By design, supMultiMatch will return 3 parts. Each part returned will count against your organisation's part limit.\n- Our query returns:\n\t- Part ID, name and MPN\n\n```html\n#Multiple parts by manufacturer part number\nquery multiSearch {\n    #The API returns a maximum of 3 parts. \n    #supMultiMatch requires an exact MPN match\n    supMultiMatch (\n        queries: [\n            #Try changing \"SY55855VKG\" to your own part number\n            {mpn: \"SY55855VKG\"},\n            {mpn: \"SY89832UMG\"},\n        ]\n    ){\n        #The total number of results the search returns\n        hits\n        parts {\n            #For this query, we return\n            # Part ID, name, & MPN \n            #Press CTRL+space to explore more fields\n            id\n            name\n            mpn\n        }\n    }\n}\n```\n\nGeneric\n\n---\n\n## Exact Parts by ID\n\n- This search uses supParts and takes exact part IDs.\n- Currency has been set as \"USD\" in this example. By default, prices are returned in the sellers' currency. Using ISO codes, you can set your currency.\n- Our query returns:\n\t- Part ID, name and MPN\n\t- Seller company names\n\t- Offer lead days, packaging time and minimum order quantity\n\t- Part category ID and name\n\n```html\n#Exact parts by part ID\n#Return a part by ID, and its price in specified currency\n\nquery partsById {\n  supParts (\n    ##Change the ids \"300\" & \"100\" to return your own part\n    ids: [\"300\", \"100\"],\n    #Change \"USD\" to your currency using ISO currency codes\n    #Prices are returned in the sellers set currency\n    currency: \"USD\"\n    ){\n    #For this query, we return\n    # Part info, seller info & part category.    \n    #Press CTRL+space to explore more fields\n    id\n    name\n    mpn\n    sellers {\n      company {\n        name\n      }\n      offers {\n        factoryLeadDays\n        packaging\n        moq\n      }\n    }\n    category {\n      id\n      name\n    }\n  }\n}\n```\n\nGeneric\n\n---\n\n## Median Price for 1000 Components\n\n- This search uses supSearchMPN. The query, 'q', is **\"acs770\"** and will return many parts, as supSearchMPN allows for partial matches.\n- Currency has been set as \"EUR\" in this example. By default, prices are returned in the sellers' currency. Using ISO codes, you can set your currency.\n- The part limit is set to 5. Each part returned will count against your organisation's part limit. By design, supSearchMPN returns 10 parts.\n- Our query returns:\n\t- Total number of returned parts\n\t- Part ID, name and MPN\n\t- Median price for 1000 (in the default currency)\n\t- Currency (this is the default currency set by seller)\n\t- Converted price and currency (set by user in the query)\n\n```html\n#Median price for 1000 components in EUR\n#Returns the median price at quantity 1000 in a set currency, discarding outliers to provide an estimated average price\n\nquery setCurrency {\n  supSearchMpn (\n    #The query value can be a partial match\n    #Change the mpn from \"acs770\" to your own search\n    q: \"acs770\", \n    #Change currency from \"EUR\" using ISO currency codes\n    currency: \"EUR\"\n    #The API returns a default of 10 parts. \n    #Change limit from \"5\" to return the no. of parts you want\n    limit: 5\n    ){\n    #Total number of results the search returns\n    hits\n    results {\n      part {\n        #For this query, we return \n        #Part id, name, MPN, median price in set currency\n        #Press CTRL+space to explore more fields\n        id\n        name\n        mpn\n        medianPrice1000 {\n          quantity\n          price\n          #Default currency is specific to the seller\n          currency\n          convertedPrice\n          #Default value for convertedCurrency is USD\n          convertedCurrency\n        }\n      }\n    }\n  }\n}\n```\n\nGeneric\n\n---\n\n## Changing Currency & Country\n\n- This search uses supSearchMPN. The query, 'q', is **\"SY55855VKG\"** and will return many parts, as supSearchMPN allows for partial matches.\n- Currency has been set as \"GBP\" in this example. By default, prices are returned in the sellers' currency. Using ISO codes, you can set your currency.\n- The country has been set as \"GB\" in this example. By default, the country is set as \"US\", and affects fields such as inventory level. Using ISO codes, you can set your Country.\n- The part limit is set to 5. Each part returned will count against your organisation's part limit. By design, supSearchMPN returns 10 parts.\n- Our query returns:\n\t- Total number of returned parts\n\t- Part ID, name\n\t- Seller company name\n\t- Part offer prices in the currency (set by the seller)\n\t- Part offer prices in the converted currency (set by the user)\n\t- Inventory level (Country dependent)\n\n```html\n#Price & inventory levels for a set country & currency\n#The default currency & country availability will be specified by the seller, unless set in the query\n\nquery setCurrencyCountry {\n  supSearchMpn (\n    #Change \"SY55855VKG\" to your own search\n    q: \"SY55855VKG\", \n    #Change \"GBP\" to your currency using ISO currency codes\n    currency: \"GBP\",\n    #Change \"GB\" to see availability in your country using ISO country codes\n    country: \"GB\",\n    #The API returns a default of 10 parts. \n    #Change limit from \"5\" to return the no. of parts you want\n    limit: 5\n    ){\n    #The total number of results the search returns\n    hits\n    results {\n      part {\n        #For this query, we return \n        # Part id, name & seller info, offer prices & inventory level\n        #Press CTRL+space to explore more fields\n        id\n        name\n        sellers {\n          company {\n            name\n          }\n          offers {  \n            prices {\n              price\n              #Default currency is specific to the seller\n              currency\n              #Default value for convertedCurrency is USD\n              convertedPrice\n              convertedCurrency\n            }\n            #Default availability is in the US\n            inventoryLevel\n          }\n        }\n      }\n    }\n  }\n}\n```\n\nGeneric\n\n---\n\n## Parts by MPN\n\n- This search uses supSearchMPN. The query, 'q', is **\"acs770\"** and will return many parts, as supSearchMPN allows for partial matches.\n- The part limit is set to 5. Each part returned will count against your organisation's part limit. By design, supSearchMPN returns 10 parts.\n- Our query returns:\n\t- Total number of returned parts\n\t- Part ID, name, and MPN\n\t- Median price for 1000\n\t- Category id and name\n\n  \n\n```html\n#Parts by MPN\n#Uses manufacturer part number (MPN) \"acs770\" to finds the median price for 1000 parts, and the category it belongs to\n\nquery partsByMpn {\n  #Try changing the value \"acs770\" to return a part of your own\n  supSearchMpn (\n    q: \"acs770\",\n    #By design, when searching queries the API will return a default of 10 parts. Remove or change the limit parameter from \"5\" to return the number of parts you want\n    limit: 5){\n    #The total number of results that the search returns\n    hits\n    results {\n      part {\n      #For this query, we have chosen to return the part id, name, MPN, medianPrice1000 & category\n        #Press CTRL+space to find out what else you can return\n        id\n        name\n        mpn\n        medianPrice1000 {\n          quantity\n          price\n        }\n        category {\n          id\n          name\n        }\n      }\n    }\n  }\n}\n```\n\nGeneric\n\n---\n\n## Specific Suppliers Match\n\n- This search uses supMultiMatch to find whether a specific supplier exists for a part. The queries require exact MPNs and will return a default maximum of 3 parts\n- You can filter or sort your query results on the manufacturer name or ID, found [here](https://octopart.com/api/v4/values#manufacturers). Note that other distributors will also be listed if they sell this part.\n- Our query returns:\n\t- Total number of results\n\t- Part name and MPN\n\t- Seller company name\n\t- Offer prices and currency\n\n```html\n#Specific suppliers match\n#Filter parts for selected suppliers \n\n#The list of distributors can be found here & can be queried by ID or name: https:#octopart.com/api/v4/values\n#If other distributors also sell this part, they will also be listed & can be filtered out later.\nquery MultiMatch {\n  supMultiMatch(\n    queries: [{\n      #supMultiMatch requires an exact MPN match\n      #Try changing \"FH12-5S-1SH(55)\" to a MPN of your choice\n      mpn: \"FH12-5S-1SH(55)\",\n      #By design, the API will return a maximum default of 3 parts\n      #Try changing \"2\" to a value of your choice to return that number of parts\n      limit: 2\n    }]\n    #These are specific distibutor ids. Try changing them to a distributor of your choice (e.g. \"12947\" or \"Worldway Electronics\")\n    #Seller IDs can be found here: https://octopart.com/api/v4/values#sellers\n    options: {filters: {distributor_id: [\"459\", \"Newark\", \"1106\", \"3261\"]}}\n  ) {\n    #The total number of results that the search returns\n    hits\n    parts {\n      #For this query, we have chosen to return the MPN, part name, along with seller names, offer prices & currency\n      #Press CTRL+space to find out what else you can return\n      mpn\n      name\n      sellers {\n        company {\n          name\n        }\n        offers {\n          prices {\n            price\n            currency\n          }\n        }\n      }\n    }\n  }\n}\n```\n\nGeneric\n\n---\n\n## Distributors With Inventory\n\n- This search uses supMultiMatch to find whether a specific supplier exists for a part. The queries require exact MPNs and will return a default maximum of 3 parts\n- You can filter or sort your query results on the manufacturer name or ID, found [here](https://octopart.com/api/v4/values#manufacturers), that have the part in stock. Note that other distributors will also be listed if they sell this part.\n- Our query returns:\n\t- Total number of results\n\t- Part name and MPN\n\t- Seller company name\n\t- Offer prices and currency\n\n  \n\n```html\n#Find exact distributors with parts in stock\n#If other distributors also sell this part, they will also be listed\n#If the distributors selected have no parts in stock, there will be no results\nquery MultiMatch {\n  supMultiMatch(\n    queries: [{\n    #supMultiMatch requres an exact MPN match\n    #Try changing \"FH12-5S-1SH(55)\" to a MPN of your choice\n    mpn: \"FH12-5S-1SH(55)\",\n    #The API will return a maximum default of 3 parts\n    #Change \"2\" to return that number of parts\n    limit: 2\n    }]\n    #Change distributor ID to one of your choice \n    #(e.g. \"2454\" or \"Future Electronics\")\n    options: {requireStockAvailable: true, filters: {distributor_id: [\"Newark\", \"459\"]}}\n  ) {\n    #Total number of results that the search returns\n    hits\n    parts {\n      #For this query, wereturn \n      # Part MPN, name, seller names, ID, & offer inventory level\n      #Press CTRL+space to explore more fields\n      mpn\n      name\n      sellers {\n        company {\n          name\n          id\n        }\n        offers {\n          inventoryLevel\n        }\n      }\n    }\n  }\n}\n```\n\nGeneric\n\n---\n\n## Categories by IDs\n\n- This search uses supCategories to query all categories by path and ID. Category paths and IDs can be found [here](https://octopart.com/api/v4/values#categories).\n- This query does not affect your part limit, as no parts are turned.\n- Our query returns:\n\t- Category ID, name, path and the number of parts associated with that category\n\n```\n#Categories by IDs\n#Query categories by path or ID. Omit these values to fetch all categories\n\nquery categories {\n  supCategories(\n    #Change \"/electronic-parts\" to \"/electronics-parts/cables-and-wire\n    paths: \"/electronic-parts\"\n    ids: \"4311\"\n  ){\n    #For this query, we return\n    # Part ID, name, path and no. parts in that category\n    #Press CTRL+space to explore more fields\n    id\n    name\n    path\n    numParts\n  }\n}\n```\n\nGeneric\n\n---\n\n## Manufacturers by ID\n\n- This search uses supManufacturers to query all manufacturers by name and ID. Manufacturer names and IDs can be found [here](https://octopart.com/api/v4/values#manufacturers).\n- This query does not affect your part limit, as no parts are turned.\n- Our query returns:\n\t- Manufacturer ID, name, aliases and homepage URL\n\n  \n\n---\n\n## Sellers by ID\n\n- This search uses supManufacturers to query all manufacturers by name and ID. Seller names and IDs can be found [here](https://octopart.com/api/v4/values#sellers).\n- This query does not affect your part limit, as no parts are turned.\n- Our query returns:\n\t- Seller ID, name, aliases and homepage URL\n\n  \n\n---\n\n## Query by Variables\n\n- Querying by variables allows the variables to be changed without changing the bulk of the code in the IDE\n- Variables are taken from the Query Variable box\n- The [Voyager](https://api.nexar.com/ui/voyager) provides more information on variable and type names that you can try out for yourself.\n\n  \n\n```html\n#Query by Variables\n#Use variables to query from\n\nquery queryByVariables($queries: [SupPartMatchQuery!]!) {\n  supMultiMatch (\n    currency: \"EUR\",\n    #Queries are taken from the Query Variable box below\n    #Change the MPN value in Query Variables box below to search your own MPN\n    queries: $queries\n  ){\n    parts {\n      #For this query, we return \n      # Part MPN, manufacturer name, price and converted price\n      #Press CTRL+space to explore more fields\n      mpn\n      manufacturer{\n        name\n        price\n        convertedPrice\n      }\n    }\n  }\n}\n\n#To go in the Query Variables box\n{\"queries\":[{\"start\": 0, \"limit\": 1, \"mpn\": \"ACS770ECB-200U-PFF-T\"}]}\n```\n\nHTML\n\nAttachments (1)[json](https://support.nexar.com/helpdesk/attachments/101107781762)\n\n[\n\nNexar Supply....json  \n41.5 KB\n\n](https://support.nexar.com/helpdesk/attachments/101107781762)"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        1600,
+        -140
+      ],
+      "id": "b7859a5c-7b44-42a2-9370-7f4662baf0fd",
+      "name": "Extract API Calls"
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        700,
+        -140
+      ],
+      "id": "457d0063-1c88-4749-ad8e-ee3f5a81c372",
+      "name": "Parts Required"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=The required part is described as follows\n{{ JSON.stringify($('Code1').item.json) }}\n\nThe candidates available are the following\n{{  JSON.stringify($('API Query').item.json.data) }}",
+        "hasOutputParser": true,
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=You are selectig electronic components for a PCB from a given bill of materials and a selection of components from a parts provider.  Make a choice considering also the following context information:  {{ null }}\nIf any information from the schema is unavailable, fill with null"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        2080,
+        460
+      ],
+      "id": "f8d38c6f-405e-4764-b8dd-d93d1db0738b",
+      "name": "Part Selection",
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.nexar.com/graphql",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjA5NzI5QTkyRDU0RDlERjIyRDQzMENBMjNDNkI4QjJFIiwidHlwIjoiYXQrand0In0.eyJuYmYiOjE3NTA4Mzc5MjYsImV4cCI6MTc1MDkyNDMyNiwiaXNzIjoiaHR0cHM6Ly9pZGVudGl0eS5uZXhhci5jb20iLCJjbGllbnRfaWQiOiI2NTY3N2I0Ni1kOTk4LTQ0ZjctYmJmMi1lMDhmN2I2NjUzYjIiLCJzdWIiOiI3QkE4MTI4Qy0yQTY2LTQ0ODMtODI5RS0yNEIyNDY2RTQ1MkYiLCJhdXRoX3RpbWUiOjE3NTA4MzYzNzUsImlkcCI6ImxvY2FsIiwicHJpdmF0ZV9jbGFpbXNfaWQiOiI1NzQ2ZDk1MS0yMGJhLTRjMDAtOTRjNi03MDVlZjQwMzQ4MWQiLCJwcml2YXRlX2NsYWltc19zZWNyZXQiOiJWOTNmeUcyNnBtNUpEd2xNNDJySmtqWDdYK2FXTWRveS9wN3R4SWZsa3FrPSIsImp0aSI6IjNFOUQ0M0ZDOTc5NEYzQjFBQTI1MzdEQUZCQTMxNTAxIiwic2lkIjoiNjNCQ0U3Rjg5QzhENDhDODQzODlBMUUwRDQzMjRCRDkiLCJpYXQiOjE3NTA4Mzc5MjYsInNjb3BlIjpbIm9wZW5pZCIsInVzZXIuYWNjZXNzIiwicHJvZmlsZSIsImVtYWlsIiwidXNlci5kZXRhaWxzIiwiZGVzaWduLmRvbWFpbiIsInN1cHBseS5kb21haW4iXSwiYW1yIjpbInB3ZCJdfQ.DLPvWvDOBIc1o0CcwQy-g3WmoZscCD_OgDFJSyukMEstvB96NPFUyPavVu7gYVBg5WI2TuAq9m7tC9G5Hnn4P2I89CwmuuDsC9IE5IOXJauE6STokInYIgCC052Iz3-bQjr410_BP1n1PiYOzdrDDDiEVkUjf8l9s2EJjaGaLWvrolnfMZ3w1YnUxWfVL79r3FiJgDPkiZ79cWBZk7XYZZJG9C7ychL7uliGRGr_lgwF4wqJOyT4gUf-8niR5TMjz-TlxcOWf4Tr-W5veCy25Sbksuma-tQ1mLVaq5inX5G5YlEa3mDNy3AwkBLRonXLAyMMropIdHYJQYIlwHwCHA"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "query",
+              "value": "={{ $json.output.query.first() }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2400,
+        -80
+      ],
+      "id": "6d002712-365d-4076-b257-8734c13f33a4",
+      "name": "API Query"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        3280,
+        -220
+      ],
+      "id": "46a3137b-f21a-450a-8d06-77fbe936201e",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\"part\": {\n\"id\": \"1187039\",\n\"name\": \"Yageo Group RC0603FR-07249KL\",\n\"mpn\": \"RC0603FR-07249KL\",\n \"category\": {\n  \"id\": \"6309\",\n  \"name\": \"Chip SMD Resistors\"\n },\n  \"medianPrice1000\": {\n\"quantity\": 1000,\n\"price\": 0.007845\n}\n}}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        2220,
+        680
+      ],
+      "id": "a98066b3-0d20-4803-a44a-1c8359e81954",
+      "name": "Structured Output Parser1"
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "reaction",
+        "operation": "get",
+        "channelId": {
+          "__rl": true,
+          "value": "",
+          "mode": "id"
+        }
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        -260,
+        180
+      ],
+      "id": "2beedced-21d2-4fc8-802e-46e79d72a925",
+      "name": "Get a reaction",
+      "webhookId": "756eb9cc-4ec1-4efc-b83f-815f9d352cc2",
+      "credentials": {
+        "slackOAuth2Api": {
+          "id": "5FRIn4eyoxlYnGBK",
+          "name": "Slack account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Extract from File3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Extract from File2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Extract from File1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File3": {
+      "main": [
+        [
+          {
+            "node": "Parts Required",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Parts Required",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File2": {
+      "main": [
+        [
+          {
+            "node": "Parts Required",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File1": {
+      "main": [
+        [
+          {
+            "node": "Parts Required",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Azure OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Extract API Calls",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Structured Output Parser",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Part Selection",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code1": {
+      "main": [
+        [
+          {
+            "node": "Extract API Calls",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook1": {
+      "main": [
+        [
+          {
+            "node": "Switch2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File4": {
+      "main": [
+        [
+          {
+            "node": "Aggregate1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File5": {
+      "main": [
+        [
+          {
+            "node": "Aggregate1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File6": {
+      "main": [
+        [
+          {
+            "node": "Aggregate1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File7": {
+      "main": [
+        [
+          {
+            "node": "Aggregate1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [
+          {
+            "node": "Extract from File7",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Extract from File4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Extract from File6",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Extract from File5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File8": {
+      "main": [
+        [
+          {
+            "node": "Aggregate2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File9": {
+      "main": [
+        [
+          {
+            "node": "Aggregate2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File10": {
+      "main": [
+        [
+          {
+            "node": "Aggregate2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File11": {
+      "main": [
+        [
+          {
+            "node": "Aggregate2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch2": {
+      "main": [
+        [
+          {
+            "node": "Extract from File11",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Extract from File8",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Extract from File10",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Extract from File9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Code1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Extract API Calls",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract API Calls": {
+      "main": [
+        [
+          {
+            "node": "API Query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parts Required": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "API Query": {
+      "main": [
+        [
+          {
+            "node": "Part Selection",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Part Selection": {
+      "main": [
+        []
+      ]
+    },
+    "Structured Output Parser1": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Part Selection",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "68fbf70e-339c-4b92-8e1d-494c3b3858c6",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d829091002c61671ef03be192f3c4629627b6c0dc098de79897f93a055e72d3f"
+  },
+  "id": "YuUm3RL94FJxgWg6",
+  "tags": []
+}
