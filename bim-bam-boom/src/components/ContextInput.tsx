@@ -7,7 +7,7 @@ type Props = {
 
 const ContextInput: React.FC<Props> = ({ value, onChange }) => (
   <textarea
-    className="w-full p-2 border"
+    style={{ width: '98%', border: '1px solid #ccc' }}
     placeholder="Enter context here..."
     value={value}
     onChange={(e) => onChange(e.target.value)}
