@@ -1,0 +1,71 @@
+{
+  "component": {
+    "name": "Widerstand, Dickschicht, SMD 0603 (1608), 390 kΩ, 0.1 W, ±1 %, RC0603FR-07390KL",
+    "ddi_pn": "26E854",
+    "description": "Chip Resistor - Surface Mount, 390 kOhms, 0.1W, 1%, 0603",
+    "mfg_pn": "RC0603FR-07390KL",
+    "manufacturer_series": "RC"
+  },
+  "vendors": [
+    {
+      "name": "Vendor A",
+      "preferenceMatch": "95%",
+      "origin": "Germany",
+      "minQuantity": 100,
+      "maxQuantity": 10000,
+      "eta": "3-5 business days",
+      "etaDays": 4,
+      "cost": 0.015,
+      "tolerance": 1,
+      "operatingTemperature": "-55°C to +155°C"
+    },
+    {
+      "name": "Vendor B",
+      "preferenceMatch": "92%",
+      "origin": "USA",
+      "minQuantity": 50,
+      "maxQuantity": 5000,
+      "eta": "5-7 business days",
+      "etaDays": 6,
+      "cost": 0.018,
+      "tolerance": 1,
+      "operatingTemperature": "-55°C to +155°C"
+    },
+    {
+      "name": "Vendor C",
+      "preferenceMatch": "90%",
+      "origin": "China",
+      "minQuantity": 500,
+      "maxQuantity": 50000,
+      "eta": "10-15 business days",
+      "etaDays": 12.5,
+      "cost": 0.009,
+      "tolerance": 5,
+      "operatingTemperature": "-40°C to +125°C"
+    },
+    {
+      "name": "Vendor D",
+      "preferenceMatch": "88%",
+      "origin": "Japan",
+      "minQuantity": 200,
+      "maxQuantity": 25000,
+      "eta": "7-10 business days",
+      "etaDays": 8.5,
+      "cost": 0.02,
+      "tolerance": 2,
+      "operatingTemperature": "-55°C to +155°C"
+    },
+    {
+      "name": "Vendor E",
+      "preferenceMatch": "85%",
+      "origin": "Taiwan",
+      "minQuantity": 1000,
+      "maxQuantity": 100000,
+      "eta": "12-18 business days",
+      "etaDays": 15,
+      "cost": 0.011,
+      "tolerance": 5,
+      "operatingTemperature": "-40°C to +125°C"
+    }
+  ]
+} 
