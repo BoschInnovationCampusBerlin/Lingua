@@ -6,6 +6,7 @@ import ComparisonPage from './pages/ComparisonPage';
 import SummaryPage from './pages/SummaryPage';
 import Navbar from './components/Navbar/Navbar';
 import HomePage from './pages/HomePage/HomePage';
+import DashboardPage from './pages/DashboardPage/DashboardPage';
 
 const AppRoutes = () => (
   <Router>
@@ -15,6 +16,7 @@ const AppRoutes = () => (
       <Route path="/upload" element={<UploadPage/>} />
       <Route path="/comparison" element={<ComparisonPage />} />
       <Route path="/summary" element={<SummaryPage />} />
+      <Route path="/dashboard" element={<DashboardPage />} />
     </Routes>
   </Router>
 );
