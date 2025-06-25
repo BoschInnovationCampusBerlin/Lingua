@@ -11,9 +11,7 @@ const Navbar = () => (
 
     {/* Navigation links on the right */}
     <div className="nav-links">
-      <Link to="/">Upload</Link>
-      <Link to="/comparison">Comparison</Link>
-      <Link to="/summary">Summary</Link>
+      <Link to="/Upload">Start</Link>
     </div>
   </nav>
 );
